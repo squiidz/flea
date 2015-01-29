@@ -14,6 +14,18 @@ Flea is a tiny and simple project builder for Go web server.
 3. ``` flea save yourCommitMessage ``` add all file who have change, commit them and push it to your git server.
 
 
+## Project Structure 
+```
+-- ProjectFolder
+          |-- lib
+          |-- template
+          |-- public
+                |-- js
+                |-- css
+                |-- fonts
+          |-- app.go
+          |-- config.json
+```
 ## TODO
 
 - Add fonctionality 
