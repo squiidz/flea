@@ -1,12 +1,11 @@
 flea
 ====
 
-![alt tag](http://upload.wikimedia.org/wikipedia/commons/6/68/Punaise.jpg)
-
 ## What is flea ? 
 
 Flea is a tiny and simple project builder for Go web server.
 
+![alt tag](http://upload.wikimedia.org/wikipedia/commons/6/68/Punaise.jpg)
 
 ## Example
 
