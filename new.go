@@ -38,7 +38,7 @@ func (p *Project) buildTree() {
 	os.Mkdir(fmt.Sprintf("%s/public/css", p.Name), 0600)
 	os.Mkdir(fmt.Sprintf("%s/public/fonts", p.Name), 0600)
 
-	os.Mkdir(fmt.Sprintf("%s/libs", p.Name), 0600)
+	os.Mkdir(fmt.Sprintf("%s/lib", p.Name), 0600)
 	os.Mkdir(fmt.Sprintf("%s/template", p.Name), 0600)
 
 	file, _ := os.Create(fmt.Sprintf("%s/app.go", p.Name))

@@ -17,8 +17,8 @@ func New(name string) *Project {
 	return &Project{
 		Name:        name,
 		Version:     "0.0.1",
-		Contributor: []string{os.Getenv("%USERNAME%")},
-		Depends:     []Dependance{Dependance{Name: "github.com/name/repo", Version: "branch Name"}}}
+		Contributor: []string{os.Getenv("USERNAME")},
+		Depends:     []Dependance{Dependance{Name: "https://github.com/name/repo", Version: "branch Name"}}}
 }
 
 type Dependance struct {
@@ -43,25 +43,30 @@ func init() {
 }
 
 func main() {
-	fmt.Println(ACTION)
 	switch ACTION[0] {
 	case "new":
 		if len(ACTION) > 1 && ACTION[1] != "" {
 			NewProject(ACTION[1])
+			fmt.Println("[+] Project create successfuly !")
 		} else {
 			fmt.Printf("[!] Command 'new' need a project name \n")
 		}
 	case "install":
 		BuildProject()
 	case "save":
-		SaveProject()
+		if len(ACTION) > 1 {
+			SaveProject(ACTION[1])
+		} else {
+			fmt.Println("[!] Command 'save' need a save message \n")
+		}
 	default:
-		return
+		PrintHelp()
 	}
 }
 
 func PrintHelp() {
-	fmt.Println("[!] No argument provided")
+	fmt.Println("[!] No argument provided\n")
 	fmt.Println("# Use 'new projectName' to create a project")
 	fmt.Println("# Use 'install' to install project dependence")
+	fmt.Println("# Use 'save yourMessage' to save your project changes and push them to your git server.")
 }

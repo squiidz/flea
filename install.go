@@ -21,10 +21,9 @@ func (p *Project) FetchLibs() {
 }
 
 func (p *Project) GitCall(link string, branch string, wg *sync.WaitGroup) error {
-	place, _ := os.Getwd()
 	repo := strings.Split(link, "/")
 
-	cmd := exec.Command("git", "clone", "-b", branch, link, place+"/libs/"+repo[len(repo)-1])
+	cmd := exec.Command("git", "clone", "-b", branch, link, os.Getenv("GOPATH")+"src/"+strings.Join(repo[2:], "/"))
 	var out bytes.Buffer
 	var stderr bytes.Buffer
 	cmd.Stdout = &out
@@ -37,7 +36,13 @@ func (p *Project) GitCall(link string, branch string, wg *sync.WaitGroup) error 
 		return err
 	}
 	wg.Done()
+
 	return nil
+}
+
+func GitInit() {
+	init := exec.Command("git", "init")
+	init.Run()
 }
 
 func BuildProject() {
@@ -53,4 +58,5 @@ func BuildProject() {
 		return
 	}
 	p.FetchLibs()
+	GitInit()
 }
