@@ -26,3 +26,18 @@ func DefaultHandler(rw http.ResponseWriter, req *http.Request) {
 }
 
 `
+var INDEX = `
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		
+		<link rel="stylesheet" type="text/css" href="/public/css/style.css">
+		<script type="text/javascript" src="/public/js/script.js"></script>
+	</head>
+	<body>
+		<p>Server Work</p>
+	</body>
+</html>
+`
