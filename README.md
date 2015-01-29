@@ -19,6 +19,7 @@ Flea is a tiny and simple project builder for Go web server.
 -- ProjectFolder
           |-- lib
           |-- template
+                |-- index.html
           |-- public
                 |-- js
                 |-- css
