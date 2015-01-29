@@ -52,7 +52,11 @@ func main() {
 			fmt.Printf("[!] Command 'new' need a project name \n")
 		}
 	case "install":
-		BuildProject()
+		if len(ACTION) > 1 {
+			LoadDepen(ACTION[1])
+		} else {
+			BuildProject()
+		}
 	case "save":
 		if len(ACTION) > 1 {
 			SaveProject(ACTION[1])

@@ -11,16 +11,37 @@ import (
 	"sync"
 )
 
+func ReadConfig() *Project {
+	p := &Project{}
+	file, err := ioutil.ReadFile("config.json")
+	if err != nil {
+		panic(err)
+	}
+	json.Unmarshal(file, p)
+	return p
+}
+
+func (p *Project) WriteConfig() {
+	data, err := json.MarshalIndent(p, "", "  ")
+	if err != nil {
+		panic(err)
+	}
+	err = ioutil.WriteFile("config.json", data, 0600)
+	if err != nil {
+		panic(err)
+	}
+}
+
 func (p *Project) FetchLibs() {
 	var wg sync.WaitGroup
 	for _, dep := range p.Depends {
 		wg.Add(1)
-		go p.GitCall(dep.Name, dep.Version, &wg)
+		go GitCall(dep.Name, dep.Version, &wg)
 	}
 	wg.Wait()
 }
 
-func (p *Project) GitCall(link string, branch string, wg *sync.WaitGroup) error {
+func GitCall(link string, branch string, wg *sync.WaitGroup) error {
 	repo := strings.Split(link, "/")
 
 	cmd := exec.Command("git", "clone", "-b", branch, link, os.Getenv("GOPATH")+"src/"+strings.Join(repo[2:], "/"))
@@ -43,6 +64,20 @@ func (p *Project) GitCall(link string, branch string, wg *sync.WaitGroup) error 
 func GitInit() {
 	init := exec.Command("git", "init")
 	init.Run()
+}
+
+func LoadDepen(src string) {
+	var wg sync.WaitGroup
+	p := ReadConfig()
+	wg.Add(1)
+	err := GitCall(src, "master", &wg)
+	if err != nil {
+		fmt.Printf("[!] Error at loading %s\n", src)
+		return
+	}
+	p.Depends = append(p.Depends, Dependance{Name: src, Version: "master"})
+	fmt.Printf("[+] Successfuly install %s\n", src)
+	p.WriteConfig()
 }
 
 func BuildProject() {
