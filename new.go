@@ -28,19 +28,19 @@ func (p *Project) buildConfig() {
 }
 
 func (p *Project) buildTree() {
-	err := os.Mkdir(p.Name, 0600)
+	err := os.Mkdir(p.Name, 0777)
 	if err != nil {
 		panic(err)
 		return
 	}
-	os.Mkdir(fmt.Sprintf("%s/public", p.Name), 0600)
-	os.Mkdir(fmt.Sprintf("%s/public/js", p.Name), 0600)
-	os.Mkdir(fmt.Sprintf("%s/public/css", p.Name), 0600)
-	os.Mkdir(fmt.Sprintf("%s/public/fonts", p.Name), 0600)
+	os.Mkdir(fmt.Sprintf("%s/public", p.Name), 0777)
+	os.Mkdir(fmt.Sprintf("%s/public/js", p.Name), 0777)
+	os.Mkdir(fmt.Sprintf("%s/public/css", p.Name), 0777)
+	os.Mkdir(fmt.Sprintf("%s/public/fonts", p.Name), 0777)
 
-	os.Mkdir(fmt.Sprintf("%s/lib", p.Name), 0600)
+	os.Mkdir(fmt.Sprintf("%s/lib", p.Name), 0777)
 
-	os.Mkdir(fmt.Sprintf("%s/template", p.Name), 0600)
+	os.Mkdir(fmt.Sprintf("%s/template", p.Name), 0777)
 	file1, _ := os.Create(fmt.Sprintf("%s/template/index.html", p.Name))
 	file1.WriteString(INDEX)
 	file1.Close()
