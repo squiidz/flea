@@ -41,3 +41,7 @@ var INDEX = `<!DOCTYPE HTML>
 	</body>
 </html>
 `
+
+var SCRIPT = `(function() {
+
+})();`

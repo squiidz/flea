@@ -37,11 +37,18 @@ func (p *Project) buildTree() {
 	os.Mkdir(fmt.Sprintf("%s/public/js", p.Name), 0777)
 	os.Mkdir(fmt.Sprintf("%s/public/css", p.Name), 0777)
 	os.Mkdir(fmt.Sprintf("%s/public/fonts", p.Name), 0777)
-	os.Mkdir(fmt.Sprintf("%s/public/template", p.Name), 0600)
-	file1, _ := os.Create(fmt.Sprintf("%s/public/template/index.html", p.Name))
+	os.Mkdir(fmt.Sprintf("%s/public/template", p.Name), 0777)
 
+	file1, _ := os.Create(fmt.Sprintf("%s/public/template/index.html", p.Name))
 	file1.WriteString(INDEX)
 	file1.Close()
+
+	style, _ := os.Create(fmt.Sprintf("%s/public/css/style.css", p.Name))
+	style.Close()
+
+	script, _ := os.Create(fmt.Sprintf("%s/public/js/script.js", p.Name))
+	script.WriteString(SCRIPT)
+	script.Close()
 
 	file2, _ := os.Create(fmt.Sprintf("%s/app.go", p.Name))
 	file2.WriteString(APPCONTENT)
