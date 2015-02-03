@@ -9,6 +9,7 @@ import (
 
 const (
 	STATIC = "/public/"
+	TEMPLATE = STATIC + "template"
 )
 
 func main() {
@@ -26,8 +27,7 @@ func DefaultHandler(rw http.ResponseWriter, req *http.Request) {
 }
 
 `
-var INDEX = `
-<!DOCTYPE HTML>
+var INDEX = `<!DOCTYPE HTML>
 <html>
 	<head>
 		<meta charset="utf-8" />
